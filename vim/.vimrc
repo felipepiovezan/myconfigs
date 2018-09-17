@@ -9,14 +9,14 @@ set mouse=a
 set number
 
 filetype plugin indent on
-set tabstop=4 " show existing tab with 4 spaces width
-set shiftwidth=4 " when indenting with '>', use 4 spaces width
-set expandtab " On pressing tab, insert 4 spaces
+set tabstop=2 " show existing tab with 2 spaces width
+set shiftwidth=2 " when indenting with '>', use 2 spaces width
+set expandtab " On pressing tab, insert 2 spaces
+set softtabstop=2
 set autoindent
-match ErrorMsg '\%81v.\+' " highlight lines with more than 80 characters
 
 syntax on
-colorscheme elflord
+colorscheme desert
 
 if has('gui_running')
   " Make shift-insert work like in Xterm
@@ -35,3 +35,19 @@ noremap <Leader>y "*y
 noremap <Leader>p "*p
 
 map <f9> :make
+
+if &diff
+  " diff mode
+  set diffopt+=iwhite
+endif
+
+set colorcolumn=81
+
+function! SetupPython()
+  " Here, you can have the final say on what is set.  So
+  " fixup any settings you don't like.
+  setlocal softtabstop=2
+  setlocal tabstop=2
+  setlocal shiftwidth=2
+endfunction
+command! -bar SetupPython call SetupPython()
