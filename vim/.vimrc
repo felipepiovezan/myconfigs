@@ -1,5 +1,86 @@
+" ---------------------
+"  LLVM SETTINGS
+
+" It's VIM, not VI
 set nocompatible
-set ruler                       " show the cursor position all the time
+
+" A tab produces a 2-space indentation
+set softtabstop=2
+set shiftwidth=2
+set expandtab
+
+" Enable filetype detection
+filetype on
+
+" Optional
+" C/C++ programming helpers
+augroup csrc
+  au!
+  autocmd FileType *      set nocindent smartindent
+  autocmd FileType c,cpp  set cindent
+augroup END
+
+" Set a few indentation parameters. See the VIM help for cinoptions-values for
+" details.  These aren't absolute rules; they're just an approximation of
+" common style in LLVM source.
+set cinoptions=:0,g0,(0,Ws,l1
+" Add and delete spaces in increments of `shiftwidth' for tabs
+set smarttab
+
+" Highlight syntax in programming languages
+syntax on
+
+" LLVM Makefiles can have names such as Makefile.rules or TEST.nightly.Makefile,
+" so it's important to categorize them as such.
+augroup filetype
+  au! BufRead,BufNewFile *Makefile* set filetype=make
+augroup END
+
+" In Makefiles, don't expand tabs to spaces, since we need the actual tabs
+autocmd FileType make set noexpandtab
+
+" Enable syntax highlighting for LLVM files. To use, copy
+" utils/vim/syntax/llvm.vim to ~/.vim/syntax .
+augroup filetype
+  au! BufRead,BufNewFile *.ll     set filetype=llvm
+augroup END
+
+" Enable syntax highlighting for tablegen files. To use, copy
+" utils/vim/syntax/tablegen.vim to ~/.vim/syntax .
+augroup filetype
+  au! BufRead,BufNewFile *.td     set filetype=tablegen
+augroup END
+
+" Enable syntax highlighting for reStructuredText files. To use, copy
+" rest.vim (http://www.vim.org/scripts/script.php?script_id=973)
+" to ~/.vim/syntax .
+augroup filetype
+ au! BufRead,BufNewFile *.rst     set filetype=rest
+augroup END
+
+" ----------------------------------------------
+"  My settings:
+" show the cursor position all the time
+set ruler
+colorscheme desert
+
+" Make shift-insert work like in Xterm
+if has('gui_running')
+  map <S-Insert> <MiddleMouse>
+  map! <S-Insert> <MiddleMouse>
+endif
+
+
+set ttimeoutlen=0
+noremap! <C-h> <Esc>:tabprevious<CR>i
+noremap  <C-h> <Esc>:tabprevious<CR>
+noremap! <C-l> <Esc>:tabnext<CR>i
+noremap  <C-l> <Esc>:tabnext<CR>
+
+noremap <Leader>y "*y
+noremap <Leader>p "*p
+
+
 
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.png,.jpg
 
@@ -8,41 +89,16 @@ set nobackup
 set mouse=a
 set number
 
-filetype plugin indent on
-set tabstop=2 " show existing tab with 2 spaces width
-set shiftwidth=2 " when indenting with '>', use 2 spaces width
-set expandtab " On pressing tab, insert 2 spaces
-set softtabstop=2
-set autoindent
+" filetype plugin indent on
+" set autoindent
 
-syntax on
-colorscheme desert
-
-if has('gui_running')
-  " Make shift-insert work like in Xterm
-  map <S-Insert> <MiddleMouse>
-  map! <S-Insert> <MiddleMouse>
-endif
-
-
-set ttimeoutlen=0
-noremap! [5^ <Esc>:tabprevious<CR>i
-noremap [5^ <Esc>:tabprevious<CR>
-noremap! [6^ <Esc>:tabnext<CR>i
-noremap [6^ <Esc>:tabnext<CR>
-
-noremap <Leader>y "*y
-noremap <Leader>p "*p
-
-map <f9> :make
 
 if &diff
   " diff mode
   set diffopt+=iwhite
 endif
 
-set colorcolumn=81
-
+" Correct python indentation.
 function! SetupPython()
   " Here, you can have the final say on what is set.  So
   " fixup any settings you don't like.
