@@ -84,6 +84,7 @@ endif
 
 " ----------------------------------------------
 "  My settings:
+
 " show the cursor position all the time
 set ruler
 
@@ -104,11 +105,12 @@ noremap  <C-l> <Esc>:tabnext<CR>
 noremap <Leader>y "*y
 noremap <Leader>p "*p
 
-set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.png,.jpg
+set suffixes+=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx
+set suffixes+=.ilg,.inx,.out,.toc,.png,.jpg
 
-set backspace=indent,eol,start
-set nobackup
+" Enable moving the cursor in all modes
 set mouse=a
+" Show linenumbers.
 set number
 
 " filetype plugin indent on
