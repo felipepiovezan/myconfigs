@@ -1,3 +1,6 @@
 [submodule "vim/pack/myplugins/start/vim-signify"]
 	path = vim/pack/myplugins/start/vim-signify
 	url = https://github.com/mhinz/vim-signify.git
+[submodule "vim/pack/myplugins/start/tagbar"]
+	path = vim/pack/myplugins/start/tagbar
+	url = https://github.com/majutsushi/tagbar.git
