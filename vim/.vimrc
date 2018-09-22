@@ -105,6 +105,15 @@ noremap  <C-l> <Esc>:tabnext<CR>
 noremap <Leader>y "*y
 noremap <Leader>p "*p
 
+" Tagbar options
+" Open/close:
+" nmap <F3> :TagbarToggle<CR>
+" Open, focus, close after select
+" nmap <F3> :TagbarOpenAutoClose<CR>
+" Open. If already open, focus.
+nmap <F3> :TagbarOpen j<CR>
+let g:tagbar_width=80
+
 set suffixes+=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx
 set suffixes+=.ilg,.inx,.out,.toc,.png,.jpg
 
