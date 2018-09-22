@@ -62,6 +62,8 @@ augroup END
 "  My settings:
 " show the cursor position all the time
 set ruler
+
+" Seems to work best with transparent terminals
 colorscheme desert
 
 " Make shift-insert work like in Xterm
@@ -70,7 +72,7 @@ if has('gui_running')
   map! <S-Insert> <MiddleMouse>
 endif
 
-
+" Shortcuts for changing tabs
 set ttimeoutlen=0
 noremap! <C-h> <Esc>:tabprevious<CR>i
 noremap  <C-h> <Esc>:tabprevious<CR>
@@ -79,8 +81,6 @@ noremap  <C-l> <Esc>:tabnext<CR>
 
 noremap <Leader>y "*y
 noremap <Leader>p "*p
-
-
 
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.png,.jpg
 
@@ -91,7 +91,6 @@ set number
 
 " filetype plugin indent on
 " set autoindent
-
 
 if &diff
   " diff mode
