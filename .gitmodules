@@ -1,0 +1,3 @@
+[submodule "vim/pack/myplugins/start/vim-signify"]
+	path = vim/pack/myplugins/start/vim-signify
+	url = https://github.com/mhinz/vim-signify.git
