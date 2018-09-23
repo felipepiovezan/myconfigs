@@ -113,6 +113,10 @@ noremap <Leader>p "*p
 " Open. If already open, focus.
 nmap <F3> :TagbarOpen j<CR>
 let g:tagbar_width=80
+autocmd VimEnter * nested :call tagbar#autoopen(1)
+autocmd BufEnter * nested :call tagbar#autoopen(0)
+autocmd FileType * nested :call tagbar#autoopen(0)
+
 
 set suffixes+=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx
 set suffixes+=.ilg,.inx,.out,.toc,.png,.jpg
