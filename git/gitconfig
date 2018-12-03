@@ -1,0 +1,11 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+name = Felipe de Azevedo Piovezan
+email = felipe.de.azevedo.piovezan@intel.com
+[diff]
+	tool = vimdiff
+[merge]
+	tool = vimdiff
+[rerere]
+	enabled = true
