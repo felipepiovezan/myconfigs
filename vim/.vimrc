@@ -1,6 +1,7 @@
 " Seems to work best with transparent terminals
 " Add colorscheme before the trick below for trailing whitespaces/long lines.
 colorscheme desert
+set backspace=indent,eol,start
 
 " ---------------------
 "  LLVM SETTINGS
@@ -63,11 +64,11 @@ augroup filetype
 augroup END
 
 " Highlight trailing whitespace and lines longer than 80 columns.
-highlight LongLine ctermbg=DarkYellow guibg=DarkYellow
+highlight LongLine ctermbg=Red guibg=Red
 highlight WhitespaceEOL ctermbg=DarkYellow guibg=DarkYellow
 if v:version >= 702
   " Lines longer than 80 columns.
-  au BufWinEnter * let w:m0=matchadd('LongLine', '\%>80v.\+', -1)
+  " au BufWinEnter * let w:m0=matchadd('LongLine', '\%>80v.\+', -1)
 
   " Whitespace at the end of a line. This little dance suppresses
   " whitespace that has just been typed.
@@ -82,7 +83,7 @@ else
   au InsertLeave * syntax match WhitespaceEOL /\s\+$/
 endif
 
-" ----------------------------------------------
+"" ----------------------------------------------
 "  My settings:
 
 " show the cursor position all the time
@@ -105,17 +106,23 @@ noremap  <C-l> <Esc>:tabnext<CR>
 noremap <Leader>y "*y
 noremap <Leader>p "*p
 
+" Highlight search results with F4
+noremap <F4> :set hlsearch! hlsearch?<CR>
+
+" Increase max num of tabs
+set tabpagemax=50
+
 " Tagbar options
 " Open/close:
-" nmap <F3> :TagbarToggle<CR>
+" nmap <F2> :TagbarClose<CR>
 " Open, focus, close after select
 " nmap <F3> :TagbarOpenAutoClose<CR>
 " Open. If already open, focus.
-nmap <F3> :TagbarOpen j<CR>
-let g:tagbar_width=80
-autocmd VimEnter * nested :call tagbar#autoopen(1)
-autocmd BufEnter * nested :call tagbar#autoopen(0)
-autocmd FileType * nested :call tagbar#autoopen(0)
+" nmap <F3> :TagbarOpen j<CR>
+" let g:tagbar_width=80
+" autocmd VimEnter * nested :call tagbar#autoopen(1)
+" autocmd BufEnter * nested :call tagbar#autoopen(0)
+" autocmd FileType c,cpp,h nested :call tagbar#autoopen(0)
 
 
 set suffixes+=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx
