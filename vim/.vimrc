@@ -67,7 +67,8 @@ highlight LongLine ctermbg=DarkYellow guibg=DarkYellow
 highlight WhitespaceEOL ctermbg=DarkYellow guibg=DarkYellow
 if v:version >= 702
   " Lines longer than 80 columns.
-  au BufWinEnter * let w:m0=matchadd('LongLine', '\%>80v.\+', -1)
+  au BufWinEnter *.h let w:m0=matchadd('LongLine', '\%>80v.\+', -1)
+  au BufWinEnter *.cpp let w:m0=matchadd('LongLine', '\%>80v.\+', -1)
 
   " Whitespace at the end of a line. This little dance suppresses
   " whitespace that has just been typed.
@@ -107,15 +108,15 @@ noremap <Leader>p "*p
 
 " Tagbar options
 " Open/close:
-" nmap <F3> :TagbarToggle<CR>
+nmap <F3> :TagbarToggle<CR>
 " Open, focus, close after select
 " nmap <F3> :TagbarOpenAutoClose<CR>
 " Open. If already open, focus.
-nmap <F3> :TagbarOpen j<CR>
+" nmap <F3> :TagbarOpen j<CR>
 let g:tagbar_width=80
-autocmd VimEnter * nested :call tagbar#autoopen(1)
-autocmd BufEnter * nested :call tagbar#autoopen(0)
-autocmd FileType * nested :call tagbar#autoopen(0)
+"autocmd VimEnter * nested :call tagbar#autoopen(1)
+"autocmd BufEnter * nested :call tagbar#autoopen(0)
+"autocmd FileType * nested :call tagbar#autoopen(0)
 
 
 set suffixes+=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx
