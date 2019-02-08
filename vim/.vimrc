@@ -1,6 +1,6 @@
 " Seems to work best with transparent terminals
 " Add colorscheme before the trick below for trailing whitespaces/long lines.
-colorscheme desert
+colorscheme darkblue
 set backspace=indent,eol,start
 
 " ---------------------
@@ -152,3 +152,6 @@ function! SetupPython()
   setlocal shiftwidth=2
 endfunction
 command! -bar SetupPython call SetupPython()
+
+map <C-K> :pyf $ACL_SRC_ROOT/llvm/tools/clang/tools/clang-format/clang-format.py<cr>
+imap <C-K> <c-o>:pyf $ACL_SRC_ROOT/llvm/tools/clang/tools/clang-format/clang-format.py<cr>
