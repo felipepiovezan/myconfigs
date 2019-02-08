@@ -10,5 +10,10 @@ email = felipe.de.azevedo.piovezan@intel.com
 [rerere]
 	enabled = true
 [alias]
-        lol = log --graph --pretty=format:\"%C(yellow)%h%Creset%C(cyan)%C(bold)%d%Creset %C(cyan)(%cr)%Creset %C(green)%ce%Creset %s\"
+        lol     = log --graph --pretty=format:\"%C(yellow)%h%Creset%C(cyan)%C(bold)%d%Creset %C(cyan)(%cr)%Creset %C(green)%ce%Creset %s\" --max-count=10
+        lolfull = log --graph --pretty=format:\"%C(yellow)%h%Creset%C(cyan)%C(bold)%d%Creset %C(cyan)(%cr)%Creset %C(green)%ce%Creset %s\"
 
+[credential]
+	helper = cache --timeout=7200
+[core]
+	fileMode = false
