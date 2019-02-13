@@ -1,4 +1,4 @@
-if [ -f $HOME/.bashrc_aliases ]; then
+if [ -f $HOME/.bashrc_pc_specific ]; then
   . $HOME/.bashrc_pc_specific
 fi
 
