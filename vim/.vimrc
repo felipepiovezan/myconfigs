@@ -63,6 +63,11 @@ augroup filetype
  au! BufRead,BufNewFile *.rst     set filetype=rest
 augroup END
 
+" OpenCL
+augroup filetype
+ au! BufNewFile,BufRead *.cl  set filetype=opencl
+augroup END
+
 " Highlight trailing whitespace and lines longer than 80 columns.
 highlight LongLine ctermbg=Red guibg=Red
 highlight WhitespaceEOL ctermbg=DarkYellow guibg=DarkYellow
