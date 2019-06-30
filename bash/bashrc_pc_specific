@@ -1,0 +1,62 @@
+# moves .cache directory from your home to data directory since Intel home directory is only 50MB
+export XDG_CACHE_HOME="$HOTEL/.cache"
+
+export PS1="\w \\$ "
+# custom prompt; visit http://ezprompt.net for a visual guide
+
+export PS2="> "
+# this prompt is used when an incomplete command is entered
+
+# the follow lines must be included
+# Setup ARC Environment
+if [ -f /p/psg/ctools/arc/arc.bashrc ]; then
+   . /p/psg/ctools/arc/arc.bashrc
+fi
+
+if [ -n $ACDS_SRC_ROOT ]; then
+  export PATH=$PATH:$ACDS_SRC_ROOT/regtest/hld/util/
+  export TRANSFORMS=$ACL_SRC_ROOT/llvm/lib/Transforms/FPGATransforms/
+  export ANALYSIS=$ACL_SRC_ROOT/llvm/lib/Analysis/FPGAAnalysis/
+  export INCANALYSIS=$ACL_SRC_ROOT/llvm/include/llvm/Analysis/FPGAAnalysis/
+  export TARGET=$ACL_SRC_ROOT/llvm/lib/Target/FPGA/FPGATargetMachine.cpp
+  export LIB=$ACL_SRC_ROOT/llvm/lib/
+  export LIT=$ACL_SRC_ROOT/llvm/test/Transforms/FPGATransforms/
+  export REGTEST=$ACDS_SRC_ROOT/regtest/
+  export OWNERS=$ACDS_SRC_ROOT/depot/hld/hldutil/main/data/code_owners.xml
+fi
+
+export DATA=/p/psg/swip/w/fdeazeve
+export data=/p/psg/swip/w/fdeazeve
+export CASES=/data/fdeazeve/compilations
+export PATH=/nfs/tor/disks/swuser_work_fdeazeve/bin/bin:$PATH
+export REGRESULTS=$DATA/result_tests
+
+# Custom auto-completion
+source $DATA/acl_bash_completion/aocl-opt.sh
+source $DATA/acl_bash_completion/reg_exe.sh
+source $DATA/acl_bash_completion/p4.sh
+
+# Perforce defaults:
+export P4EDITOR=vim
+# i++ with toolchain:
+alias vimcpp='vim *.cpp -p'
+alias i+++='i++ --gcc-toolchain=$GCC_ROOTDIR'
+alias lit='aocl-lit -vvv o'
+alias bootstrap_build='arc shell dev/aclbri -- acl_bootstrap_build --dir .'
+alias gettrunk='arc shell devacds/19.3,acltest/19.3,acds/19.3,testutils,regutils'
+export PATH=$data/felipe/scripts/cleanup_ir/:$PATH
+
+#disable box asking for password in git commands.
+unset SSH_ASKPASS
+
+if [[ "${MANPATH: -1}" != ":" ]]; then
+  export MANPATH="$MANPATH:"
+fi
+
+#include tmux by default.
+export PATH=$ARC_TOOLS/tmux/2.7/linux64/bin/:$PATH
+export LD_LIBRARY_PATH=$ARC_TOOLS/tmux/2.7/linux64/lib:$LD_LIBRARY_PATH
+
+#include git by default.
+export PATH=$ARC_TOOLS/git/2.13.0/linux64/bin:$PATH
+export GIT_EXEC_PATH=$ARC_TOOLS/git/2.13.0/linux64/libexec/git-core
