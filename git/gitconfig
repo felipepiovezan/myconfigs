@@ -1,19 +1,25 @@
-# This is Git's per-user configuration file.
+
 [user]
-# Please adapt and uncomment the following lines:
 name = Felipe de Azevedo Piovezan
-email = felipe.de.azevedo.piovezan@intel.com
+
 [diff]
-	tool = vimdiff
+  tool = vimdiff
+
 [merge]
-	tool = vimdiff
+  tool = vimdiff
+
 [rerere]
-	enabled = true
+  enabled = true
+
 [alias]
-        lol     = log --graph --pretty=format:\"%C(yellow)%h%Creset%C(cyan)%C(bold)%d%Creset %C(cyan)(%cr)%Creset %C(green)%ce%Creset %s\" --max-count=10
-        lolfull = log --graph --pretty=format:\"%C(yellow)%h%Creset%C(cyan)%C(bold)%d%Creset %C(cyan)(%cr)%Creset %C(green)%ce%Creset %s\"
+  lol     = log --graph --pretty=format:\"%C(yellow)%h%Creset%C(cyan)%C(bold)%d%Creset %C(cyan)(%cr)%Creset %C(green)%ce%Creset %s\" --max-count=10
+  lolfull = log --graph --pretty=format:\"%C(yellow)%h%Creset%C(cyan)%C(bold)%d%Creset %C(cyan)(%cr)%Creset %C(green)%ce%Creset %s\"
 
 [credential]
-	helper = cache --timeout=7200
+  helper = store
+
 [core]
-	fileMode = false
+  fileMode = false
+
+[include]
+  path = ~/.gitconfig.pc.specific
