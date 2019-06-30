@@ -68,14 +68,9 @@ augroup filetype
  au! BufNewFile,BufRead *.cl  set filetype=opencl
 augroup END
 
-" Highlight trailing whitespace and lines longer than 80 columns.
-highlight LongLine ctermbg=Red guibg=Red
+" Highlight trailing whitespace.
 highlight WhitespaceEOL ctermbg=DarkYellow guibg=DarkYellow
 if v:version >= 702
-  " Lines longer than 80 columns.
-  au BufWinEnter *.h let w:m0=matchadd('LongLine', '\%>80v.\+', -1)
-  au BufWinEnter *.cpp let w:m0=matchadd('LongLine', '\%>80v.\+', -1)
-
   " Whitespace at the end of a line. This little dance suppresses
   " whitespace that has just been typed.
   au BufWinEnter * let w:m1=matchadd('WhitespaceEOL', '\s\+$', -1)
@@ -84,7 +79,6 @@ if v:version >= 702
   au InsertLeave * call matchdelete(w:m2)
   au InsertLeave * let w:m1=matchadd('WhitespaceEOL', '\s\+$', -1)
 else
-  au BufRead,BufNewFile * syntax match LongLine /\%>80v.\+/
   au InsertEnter * syntax match WhitespaceEOL /\s\+\%#\@<!$/
   au InsertLeave * syntax match WhitespaceEOL /\s\+$/
 endif
@@ -160,3 +154,12 @@ command! -bar SetupPython call SetupPython()
 
 map <C-K> :pyf $ACL_SRC_ROOT/llvm/tools/clang/tools/clang-format/clang-format.py<cr>
 imap <C-K> <c-o>:pyf $ACL_SRC_ROOT/llvm/tools/clang/tools/clang-format/clang-format.py<cr>
+
+
+" CtrlP uses find instead of vim glob.
+let g:ctrlp_user_command = 'find %s -type f'
+" CtrlP runs asynchronously.
+let g:user_command_async = 1
+" Don't delete cache on exit.
+let g:ctrlp_clear_cache_on_exit = 1
+let g:ctrlp_cache_dir = $DATA.'/.cache/ctrlp'
