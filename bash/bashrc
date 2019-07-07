@@ -4,7 +4,7 @@ HISTSIZE=15000
 HISTFILESIZE=20000
 
 alias ls="ls --color"
-alias grep="grep --color --extended-regexp"
+alias grep="grep --line-number --color --extended-regexp"
 # these turn on terminal coloring for ls and grep
 
 # Have the prompt default to be the pwd
