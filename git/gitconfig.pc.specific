@@ -1,0 +1,3 @@
+#Example:
+#[http]
+#	proxy = myproxy.com:1717
