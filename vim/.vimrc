@@ -152,3 +152,6 @@ function! SetupPython()
   setlocal shiftwidth=2
 endfunction
 command! -bar SetupPython call SetupPython()
+
+map <C-K> :! clang-format<cr>
+imap <C-K> <c-o>:! clang-format<cr>
