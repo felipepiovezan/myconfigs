@@ -20,3 +20,7 @@ name = Felipe de Azevedo Piovezan
 
 [include]
   path = ~/.gitconfig.pc.specific
+
+
+[core]
+  editor = 'vim'
