@@ -18,8 +18,9 @@ name = Felipe de Azevedo Piovezan
 [credential]
   helper = store
 
-[core]
-  fileMode = false
-
 [include]
   path = ~/.gitconfig.pc.specific
+
+
+[core]
+  editor = 'vim'

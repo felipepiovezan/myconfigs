@@ -152,9 +152,8 @@ function! SetupPython()
 endfunction
 command! -bar SetupPython call SetupPython()
 
-map <C-K> :pyf $ACL_SRC_ROOT/llvm/tools/clang/tools/clang-format/clang-format.py<cr>
-imap <C-K> <c-o>:pyf $ACL_SRC_ROOT/llvm/tools/clang/tools/clang-format/clang-format.py<cr>
-
+map <C-K> :! clang-format<cr>
+imap <C-K> <c-o>:! clang-format<cr>
 
 " CtrlP uses find instead of vim glob.
 let g:ctrlp_user_command = 'find %s -type f'
