@@ -10,3 +10,6 @@
 [submodule "vim/pack/myplugins/start/ctrlp.vim"]
 	path = vim/pack/myplugins/start/ctrlp.vim
 	url = https://github.com/ctrlpvim/ctrlp.vim.git
+[submodule "vim/pack/myplugins/start/YouCompleteMe"]
+	path = vim/pack/myplugins/start/YouCompleteMe
+	url = https://github.com/ycm-core/YouCompleteMe.git
