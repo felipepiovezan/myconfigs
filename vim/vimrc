@@ -115,16 +115,6 @@ set tabpagemax=50
 " Tagbar options
 " Open/close:
 nmap <F3> :TagbarToggle<CR>
-" nmap <F2> :TagbarClose<CR>
-" Open, focus, close after select
-" nmap <F3> :TagbarOpenAutoClose<CR>
-" Open. If already open, focus.
-" nmap <F3> :TagbarOpen j<CR>
-" let g:tagbar_width=80
-"autocmd VimEnter * nested :call tagbar#autoopen(1)
-"autocmd BufEnter * nested :call tagbar#autoopen(0)
-"autocmd FileType * nested :call tagbar#autoopen(0)
-
 
 set suffixes+=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx
 set suffixes+=.ilg,.inx,.out,.toc,.png,.jpg
@@ -165,5 +155,11 @@ let g:ctrlp_clear_cache_on_exit = 0
 " delay time in milliseconds.
 let g:ctrlp_lazy_update = 1
 
+map <C-n> :NERDTreeToggle<CR>
+
 " required for YouCompleteMe
 set encoding=utf-8
+map <F1> :YcmCompleter GoToDeclaration<CR>
+map <F2> :YcmCompleter GoToDefinition<CR>
+map <F3> :YcmCompleter GoToDefinition<CR>
+nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
