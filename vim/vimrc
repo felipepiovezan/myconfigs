@@ -157,6 +157,8 @@ let g:ctrlp_lazy_update = 1
 
 map <C-n> :NERDTreeToggle<CR>
 
+" required for YouCompleteMe
+set encoding=utf-8
 map <F1> :YcmCompleter GoToDeclaration<CR>
 map <F2> :YcmCompleter GoToDefinition<CR>
 map <F3> :YcmCompleter GoToDefinition<CR>
