@@ -27,17 +27,17 @@ fi
 
 export LOCAL=/build/fdeazeve/
 export local=$LOCAL
+export SOFTWARE_INSTALL=$LOCAL/software/install
+
 export DATA=/p/psg/swip/w/fdeazeve
 export data=/p/psg/swip/w/fdeazeve
+
 export PATH=/nfs/tor/disks/swuser_work_fdeazeve/bin/bin:$PATH
 
 # Custom auto-completion
 source $DATA/acl_bash_completion/aocl-opt.sh
 source $DATA/acl_bash_completion/reg_exe.sh
 source $DATA/acl_bash_completion/p4.sh
-
-# Perforce defaults:
-export P4EDITOR=vim
 
 # i++ with toolchain:
 alias vimcpp='vim *.cpp -p'
@@ -70,5 +70,5 @@ function getrelease() { arc shell devacds/19.3,acltest/19.3,acds/19.3,testutils,
 function getdebug() { arc shell acltest/todebug,gdb/8.3,; }
 
 # My custom install path.
-export PATH=$PATH:$LOCAL/software/install/bin/
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LOCAL/software/install/lib
+export PATH=$SOFTWARE_INSTALL/bin/:$PATH
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SOFTWARE_INSTALL/lib
