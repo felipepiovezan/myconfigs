@@ -7,6 +7,6 @@ fi
 
 rm ~/.bash_profile ~/.bashrc_pc_specific "$1"
 
-cp bash_profile ~/.bash_profile
-cp bashrc_pc_specific ~/.bashrc_pc_specific
-cp bashrc "$1"
+ln --symbolic bash_profile ~/.bash_profile
+ln --symbolic bashrc_pc_specific ~/.bashrc_pc_specific
+ln --symbolic bashrc "$1"
