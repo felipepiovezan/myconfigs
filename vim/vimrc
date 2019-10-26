@@ -143,8 +143,8 @@ function! SetupPython()
 endfunction
 command! -bar SetupPython call SetupPython()
 
-map <C-K> :! clang-format<cr>
-imap <C-K> <c-o>:! clang-format<cr>
+map <C-k> :pyf /usr/share/clang/clang-format.py<cr>
+imap <C-k> <c-o> :pyf /usr/share/clang/clang-format.py<cr>
 
 " CtrlP uses find instead of vim glob.
 let g:ctrlp_user_command = 'find %s -type f'
@@ -163,3 +163,24 @@ set encoding=utf-8
 map <F1> :YcmCompleter GoToDeclaration<CR>
 map <F2> :YcmCompleter GoToDefinition<CR>
 nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
+
+" Tell vim to remember certain things when we exit
+"  '10  :  marks will be remembered for up to 10 previously edited files
+"  "100 :  will save up to 100 lines for each register
+"  :20  :  up to 20 lines of command-line history will be remembered
+"  %    :  saves and restores the buffer list
+"  n... :  where to save the viminfo files
+set viminfo='10,\"100,:20,%,n~/.viminfo
+
+" Setyp function to remember where we were
+function! ResCur()
+  if line("'\"") <= line("$")
+    normal! g`"
+    return 1
+  endif
+  endfunction
+
+augroup resCur
+  autocmd!
+  autocmd BufWinEnter * call ResCur()
+augroup END
