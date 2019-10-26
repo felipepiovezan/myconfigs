@@ -162,5 +162,4 @@ map <C-n> :NERDTreeToggle<CR>
 set encoding=utf-8
 map <F1> :YcmCompleter GoToDeclaration<CR>
 map <F2> :YcmCompleter GoToDefinition<CR>
-map <F3> :YcmCompleter GoToDefinition<CR>
 nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
