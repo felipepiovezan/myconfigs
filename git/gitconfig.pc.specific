@@ -1,3 +1,5 @@
-#Example:
-#[http]
-#	proxy = myproxy.com:1717
+[http]
+  proxy = proxy-chain.intel.com:911
+
+[user]
+  email = felipe.de.azevedo.piovezan@intel.com
