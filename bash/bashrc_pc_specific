@@ -1,1 +1,74 @@
-#include configurations particular to this computer here.
+# moves .cache directory from your home to data directory since Intel home directory is only 50MB
+export XDG_CACHE_HOME="$HOTEL/.cache"
+
+export PS1="\w \\$ "
+# custom prompt; visit http://ezprompt.net for a visual guide
+
+export PS2="> "
+# this prompt is used when an incomplete command is entered
+
+# the follow lines must be included
+# Setup ARC Environment
+if [ -f /p/psg/ctools/arc/arc.bashrc ]; then
+   . /p/psg/ctools/arc/arc.bashrc
+fi
+
+if [ -n $ACDS_SRC_ROOT ]; then
+  export PATH=$PATH:$ACDS_SRC_ROOT/regtest/hld/util/
+  export TRANSFORMS=$ACDS_SRC_ROOT/acl/llvm-project/llvm/lib/Transforms/FPGATransforms/
+  export ANALYSIS=$ACDS_SRC_ROOT/acl/llvm-project/llvm/lib/Analysis/FPGAAnalysis/
+  export INCANALYSIS=$ACDS_SRC_ROOT/acl/llvm-project/llvm/include/llvm/Analysis/FPGAAnalysis/
+  export TARGET=$ACDS_SRC_ROOT/acl/llvm-project/llvm/lib/Target/FPGA/FPGATargetMachine.cpp
+  export LIB=$ACDS_SRC_ROOT/acl/llvm-project/llvm/lib/
+  export LIT=$ACDS_SRC_ROOT/acl/llvm-project/llvm/test/Transforms/FPGATransforms/
+  export REGTEST=$ACDS_SRC_ROOT/regtest/
+  export OWNERS=$ACDS_SRC_ROOT/depot/hld/hldutil/main/data/code_owners.xml
+fi
+
+export LOCAL=/build/fdeazeve/
+export local=$LOCAL
+export DATA=/p/psg/swip/w/fdeazeve
+export data=/p/psg/swip/w/fdeazeve
+export PATH=/nfs/tor/disks/swuser_work_fdeazeve/bin/bin:$PATH
+
+# Custom auto-completion
+source $DATA/acl_bash_completion/aocl-opt.sh
+source $DATA/acl_bash_completion/reg_exe.sh
+source $DATA/acl_bash_completion/p4.sh
+
+# Perforce defaults:
+export P4EDITOR=vim
+
+# i++ with toolchain:
+alias vimcpp='vim *.cpp -p'
+alias i+++='i++ --gcc-toolchain=$GCC_ROOTDIR'
+alias lit='aocl-lit -vvv o'
+export PATH=$data/felipe/scripts/cleanup_ir/:$PATH
+
+#disable box asking for password in git commands.
+unset SSH_ASKPASS
+
+# Fix manpages.
+if [[ "${MANPATH: -1}" != ":" ]]; then
+  export MANPATH="$MANPATH:"
+fi
+
+#include tmux by default.
+export PATH=$ARC_TOOLS/tmux/2.7/linux64/bin/:$PATH
+export LD_LIBRARY_PATH=$ARC_TOOLS/tmux/2.7/linux64/lib:$LD_LIBRARY_PATH
+
+#include my compiled vim by default.
+export PATH=$local/software/vim/install/bin/:$PATH
+
+# QShell
+function sync_to_latest() { QUIET=1 make -C $ACLTEST_ROOT/../../p4/acl/bcommon/ sync_to_latest; }
+function sync_to_build() { QUIET=1 make -C $ACLTEST_ROOT/../../p4/acl/bcommon/ sync_to_build; }
+
+# Getting builds
+function gettrunk() { arc shell devacds/20.1,acltest/20.1,acds/20.1,testutils,regutils; }
+function getrelease() { arc shell devacds/19.3,acltest/19.3,acds/19.3,testutils,regutils; }
+function getdebug() { arc shell acltest/todebug,gdb/8.3,; }
+
+# My custom install path.
+export PATH=$PATH:$LOCAL/software/install/bin/
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LOCAL/software/install/lib
