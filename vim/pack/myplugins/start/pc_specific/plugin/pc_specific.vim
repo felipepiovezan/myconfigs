@@ -9,5 +9,5 @@ set t_BE=
 let g:ctrlp_root_markers = ['.p4ignore']
 let g:ctrlp_cache_dir = $DATA.'/.cache/ctrlp'
 
-map <C-K> :! clang-format<cr>
-imap <C-K> <c-o>:! clang-format<cr>
+map <C-K> :pyf $LOCAL/software/community_llvm/llvm-project/clang/tools/clang-format/clang-format.py<cr>
+imap <C-K> <c-o> :pyf $LOCAL/software/community_llvm/llvm-project/clang/tools/clang-format/clang-format.py<cr>
