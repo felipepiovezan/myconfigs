@@ -17,3 +17,5 @@ bind -f  ~/.inputrc
 
 # Perforce defaults:
 export P4EDITOR=vim
+
+function mycp() { rsync -ah --progress $@; }
