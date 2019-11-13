@@ -53,22 +53,21 @@ if [[ "${MANPATH: -1}" != ":" ]]; then
   export MANPATH="$MANPATH:"
 fi
 
-#include tmux by default.
-export PATH=$ARC_TOOLS/tmux/2.7/linux64/bin/:$PATH
-export LD_LIBRARY_PATH=$ARC_TOOLS/tmux/2.7/linux64/lib:$LD_LIBRARY_PATH
-
 #include my compiled vim by default.
 export PATH=$local/software/vim/install/bin/:$PATH
 
 # QShell
 function sync_to_latest() { QUIET=1 make -C $ACLTEST_ROOT/../../p4/acl/bcommon/ sync_to_latest; }
 function sync_to_build() { QUIET=1 make -C $ACLTEST_ROOT/../../p4/acl/bcommon/ sync_to_build; }
+function qnew() { qshell2 hldkit/20.1 --acl --copy acdskit/20.1/62; }
+function qenter() { qshell2 acdskit/20.1/62; }
 
 # Getting builds
 function gettrunk() { arc shell devacds/20.1,acltest/20.1,acds/20.1,testutils,regutils; }
-function getrelease() { arc shell devacds/19.3,acltest/19.3,acds/19.3,testutils,regutils; }
+function get191() { arc shell devacds/19.1,acltest/19.1,acds/19.1,testutils,regutils; }
+function get193() { arc shell devacds/19.3,acltest/19.3,acds/19.3,testutils,regutils; }
 function getdebug() { arc shell acltest/todebug,gdb/8.3,; }
 
 # My custom install path.
-export PATH=$SOFTWARE_INSTALL/bin/:$PATH
+export PATH=$PATH:$SOFTWARE_INSTALL/bin/
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SOFTWARE_INSTALL/lib
