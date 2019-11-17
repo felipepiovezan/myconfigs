@@ -19,3 +19,7 @@ bind -f  ~/.inputrc
 export P4EDITOR=vim
 
 function mycp() { rsync -ah --progress $@; }
+
+set -o vi
+export VISUAL=vim
+export EDITOR=vim
