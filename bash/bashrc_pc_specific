@@ -27,12 +27,15 @@ fi
 
 export LOCAL=/build/fdeazeve/
 export local=$LOCAL
-export SOFTWARE_INSTALL=$LOCAL/software/install
+
+# My custom install path.
+export SOFTWARE_INSTALL_PREPATH=$LOCAL/software/install_prepath
+export SOFTWARE_INSTALL_POSTPATH=$LOCAL/software/install_postpath
+export PATH=$SOFTWARE_INSTALL_PREPATH/bin:$PATH:$SOFTWARE_INSTALL_POSTPATH/bin
+export LD_LIBRARY_PATH=$SOFTWARE_INSTALL_PREPATH/lib:$LD_LIBRARY_PATH:$SOFTWARE_INSTALL_POSTPATH/lib
 
 export DATA=/p/psg/swip/w/fdeazeve
 export data=/p/psg/swip/w/fdeazeve
-
-export PATH=/nfs/tor/disks/swuser_work_fdeazeve/bin/bin:$PATH
 
 # Custom auto-completion
 source $DATA/acl_bash_completion/aocl-opt.sh
@@ -53,21 +56,16 @@ if [[ "${MANPATH: -1}" != ":" ]]; then
   export MANPATH="$MANPATH:"
 fi
 
-#include my compiled vim by default.
-export PATH=$local/software/vim/install/bin/:$PATH
-
 # QShell
 function sync_to_latest() { QUIET=1 make -C $ACLTEST_ROOT/../../p4/acl/bcommon/ sync_to_latest; }
 function sync_to_build() { QUIET=1 make -C $ACLTEST_ROOT/../../p4/acl/bcommon/ sync_to_build; }
+function sync_regtest() { QUIET=1 make -C $ACLTEST_ROOT/../../p4/acl/bcommon/ sync_regtest; }
 function qnew() { qshell2 hldkit/20.1 --acl --copy acdskit/20.1/62; }
 function qenter() { qshell2 acdskit/20.1/62; }
 
 # Getting builds
-function gettrunk() { arc shell devacds/20.1,acltest/20.1,acds/20.1,testutils,regutils; }
+function gettrunk() { arc shell acltest/20.1,testutils,regutils; }
 function get191() { arc shell devacds/19.1,acltest/19.1,acds/19.1,testutils,regutils; }
 function get193() { arc shell devacds/19.3,acltest/19.3,acds/19.3,testutils,regutils; }
 function getdebug() { arc shell acltest/todebug,gdb/8.3,; }
 
-# My custom install path.
-export PATH=$PATH:$SOFTWARE_INSTALL/bin/
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SOFTWARE_INSTALL/lib
