@@ -184,3 +184,6 @@ augroup resCur
   autocmd!
   autocmd BufWinEnter * call ResCur()
 augroup END
+
+
+hi TabLineSel ctermfg=Red ctermbg=Yellow

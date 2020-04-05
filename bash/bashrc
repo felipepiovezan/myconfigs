@@ -7,7 +7,6 @@ HISTSIZE=15000
 HISTFILESIZE=20000
 
 alias ls="ls --color"
-alias grep="grep --line-number --color --extended-regexp"
 
 # Have the prompt default to be the pwd
 export PS1="\w$ "
@@ -19,6 +18,7 @@ bind -f  ~/.inputrc
 export P4EDITOR=vim
 
 function mycp() { rsync -ah --progress $@; }
+function g() { grep --recursive --color=always --line-number --extended-regexp "$@"; }
 
 set -o vi
 export VISUAL=vim

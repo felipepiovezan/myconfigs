@@ -16,17 +16,26 @@ fi
 if [ -n $ACDS_SRC_ROOT ]; then
   export PATH=$PATH:$ACDS_SRC_ROOT/regtest/hld/util/
   export TRANSFORMS=$ACDS_SRC_ROOT/acl/llvm-project/llvm/lib/Transforms/FPGATransforms/
+  export transforms=$ACDS_SRC_ROOT/acl/llvm-project/llvm/lib/Transforms/FPGATransforms/
   export ANALYSIS=$ACDS_SRC_ROOT/acl/llvm-project/llvm/lib/Analysis/FPGAAnalysis/
+  export analysis=$ACDS_SRC_ROOT/acl/llvm-project/llvm/lib/Analysis/FPGAAnalysis/
   export INCANALYSIS=$ACDS_SRC_ROOT/acl/llvm-project/llvm/include/llvm/Analysis/FPGAAnalysis/
+  export incanalysis=$ACDS_SRC_ROOT/acl/llvm-project/llvm/include/llvm/Analysis/FPGAAnalysis/
   export TARGET=$ACDS_SRC_ROOT/acl/llvm-project/llvm/lib/Target/FPGA/FPGATargetMachine.cpp
+  export target=$ACDS_SRC_ROOT/acl/llvm-project/llvm/lib/Target/FPGA/FPGATargetMachine.cpp
   export LIB=$ACDS_SRC_ROOT/acl/llvm-project/llvm/lib/
+  export lib=$ACDS_SRC_ROOT/acl/llvm-project/llvm/lib/
   export LIT=$ACDS_SRC_ROOT/acl/llvm-project/llvm/test/Transforms/FPGATransforms/
+  export lit=$ACDS_SRC_ROOT/acl/llvm-project/llvm/test/Transforms/FPGATransforms/
   export REGTEST=$ACDS_SRC_ROOT/regtest/
+  export regtest=$ACDS_SRC_ROOT/regtest/
   export OWNERS=$ACDS_SRC_ROOT/depot/hld/hldutil/main/data/code_owners.xml
+  export owners=$ACDS_SRC_ROOT/depot/hld/hldutil/main/data/code_owners.xml
 fi
 
 export LOCAL=/build/fdeazeve/
 export local=$LOCAL
+export bl=$LOCAL/acl_builds/
 
 # My custom install path.
 export SOFTWARE_INSTALL_PREPATH=$LOCAL/software/install_prepath
@@ -35,7 +44,9 @@ export PATH=$SOFTWARE_INSTALL_PREPATH/bin:$PATH:$SOFTWARE_INSTALL_POSTPATH/bin
 export LD_LIBRARY_PATH=$SOFTWARE_INSTALL_PREPATH/lib:$LD_LIBRARY_PATH:$SOFTWARE_INSTALL_POSTPATH/lib
 
 export DATA=/p/psg/swip/w/fdeazeve
-export data=/p/psg/swip/w/fdeazeve
+export data=$DATA
+export b=$data/builds/
+export acl=$ACDS_SRC_ROOT/acl
 
 # Custom auto-completion
 source $DATA/acl_bash_completion/aocl-opt.sh
@@ -44,8 +55,8 @@ source $DATA/acl_bash_completion/p4.sh
 
 # i++ with toolchain:
 alias vimcpp='vim *.cpp -p'
-alias i+++='i++ --gcc-toolchain=$GCC_ROOTDIR'
 alias lit='aocl-lit -vvv o'
+function ipp() { i++ $@; }
 export PATH=$data/felipe/scripts/cleanup_ir/:$PATH
 
 #disable box asking for password in git commands.
@@ -58,14 +69,29 @@ fi
 
 # QShell
 function sync_to_latest() { QUIET=1 make -C $ACLTEST_ROOT/../../p4/acl/bcommon/ sync_to_latest; }
-function sync_to_build() { QUIET=1 make -C $ACLTEST_ROOT/../../p4/acl/bcommon/ sync_to_build; }
+#function sync_to_build() { QUIET=1 make -C $ACLTEST_ROOT/../../p4/acl/bcommon/ sync_to_build; }
+function sync() { sync_to_latest; }
 function sync_regtest() { QUIET=1 make -C $ACLTEST_ROOT/../../p4/acl/bcommon/ sync_regtest; }
-function qnew() { qshell2 hldkit/20.1 --acl --copy acdskit/20.1/62; }
-function qenter() { qshell2 acdskit/20.1/62; }
+#function qnew() { qshell2 hldkit/20.3 --acl --copy acds/20.1/156; }
+#function qenter() { qshell2 acdskit/20.1/156; }
+function qnew() { qshell2 --acl --copy hldkit; }
+function qenter() { qshell2; }
 
 # Getting builds
-function gettrunk() { arc shell acltest/20.1,testutils,regutils; }
+function gettrunk() { arc shell acltest/20.3,acds/20.3,modelsim_se,modelsim_se-lic; }
 function get191() { arc shell devacds/19.1,acltest/19.1,acds/19.1,testutils,regutils; }
 function get193() { arc shell devacds/19.3,acltest/19.3,acds/19.3,testutils,regutils; }
 function getdebug() { arc shell acltest/todebug,gdb/8.3,; }
+function cheatall() { make -C $acl cheat-all; }
+function getsycl() { arc shell aclsycl,sycl/[qualified=1],tbb,acds/p/psg/data/sys_dla/acds/acds_17_1_1_with_patch_1_38,gcc/7.4.0/2,adapt/18.0.1/185,python/2.7.13,aclboardpkg/intel_a10gx_pac/1.2a,ninja,cmake; }
+function getemu() { arc shell ssg_opencl_emulator_env ; }
 
+# SYCL
+function syclrtl() { dpcpp --gcc-toolchain=$GCC_ROOTDIR -fintelfpga -Xshardware -fsycl-link -Xsv -Xsv -Xssave-temps $@; }
+
+# Arc cheating
+function poorfarm { arc job-query user=fdeazeve status=queued priority=$1 | arc job - priority=$2; }
+function poorfarmjob { arc job-query parent=$1 | arc job - priority=$2; }
+
+# P4
+function mychanges { p4 changes --me -c $P4CLIENT -s pending; }
