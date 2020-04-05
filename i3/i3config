@@ -158,10 +158,6 @@ bar {
 bindsym Mod1+F1 exec firefox
 bindsym Mod1+F2 exec telegram-desktop
 bindsym Mod1+F3 exec pcmanfm
-bindsym Mod1+F4 exec steam
-bindsym Mod1+F5 exec gimp
-bindsym Mod1+F6 exec vlc
 bindsym Mod1+Shift+F7 exec mirage
-bindsym Mod1+F7 exec pavucontrol
 bindsym Mod1+F12 exec chromium
 bindsym Mod1+Escape exec ~/bin/menu_controls.py

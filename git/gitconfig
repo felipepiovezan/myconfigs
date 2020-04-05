@@ -15,9 +15,6 @@ name = Felipe de Azevedo Piovezan
   lol     = log --graph --pretty=format:\"%C(yellow)%h%Creset%C(cyan)%C(bold)%d%Creset %C(cyan)(%cr)%Creset %C(green)%ce%Creset %s\" --max-count=10
   lolfull = log --graph --pretty=format:\"%C(yellow)%h%Creset%C(cyan)%C(bold)%d%Creset %C(cyan)(%cr)%Creset %C(green)%ce%Creset %s\"
 
-[credential]
-  helper = store
-
 [include]
   path = ~/.gitconfig.pc.specific
 

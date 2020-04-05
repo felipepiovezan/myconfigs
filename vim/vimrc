@@ -1,23 +1,58 @@
-" Seems to work best with transparent terminals
-" Add colorscheme before the trick below for trailing whitespaces/long lines.
-colorscheme darkblue
-set backspace=indent,eol,start
-
-" ---------------------
-"  LLVM SETTINGS
-
 " It's VIM, not VI
 set nocompatible
 
+"""""""""""""" Colorscheme options """"""""""""""
+" Add colorscheme before the trick below for trailing whitespaces/long lines.
+set background=dark
+" colorscheme solarized
+
+" Seems to work best with transparent terminals
+set backspace=indent,eol,start
+
+"""""""""""""" Tab(\t) behavior options """"""""""""""
 " A tab produces a 2-space indentation
 set softtabstop=2
 set shiftwidth=2
 set expandtab
+" Add and delete spaces in increments of `shiftwidth' for tabs
+set smarttab
+
+" Set a few indentation parameters. See the VIM help for cinoptions-values for
+" details.  These aren't absolute rules; they're just an approximation of
+" common style in LLVM source.
+set cinoptions=:0,g0,(0,Ws,l1
+
+"""""""""""""" File based syntax options """"""""""""""
 
 " Enable filetype detection
 filetype on
 
-" Optional
+" Highlight syntax in programming languages
+syntax on
+
+" Syntax detection
+augroup filetype
+  au! BufRead,BufNewFile *Makefile* set filetype=make
+" To use syntax below, copy syntax/*.vim to ~/.vim/syntax
+  au! BufRead,BufNewFile *.ll     set filetype=llvm
+  au! BufRead,BufNewFile *.td     set filetype=tablegen
+  au! BufRead,BufNewFile *.rst     set filetype=rest
+  au! BufNewFile,BufRead *.cl  set filetype=opencl
+augroup END
+
+" In Makefiles, don't expand tabs to spaces, since we need the actual tabs
+autocmd FileType make set noexpandtab
+
+" Correct python indentation.
+function! SetupPython()
+  " Here, you can have the final say on what is set.  So
+  " fixup any settings you don't like.
+  setlocal softtabstop=2
+  setlocal tabstop=2
+  setlocal shiftwidth=2
+endfunction
+command! -bar SetupPython call SetupPython()
+
 " C/C++ programming helpers
 augroup csrc
   au!
@@ -25,48 +60,7 @@ augroup csrc
   autocmd FileType c,cpp  set cindent
 augroup END
 
-" Set a few indentation parameters. See the VIM help for cinoptions-values for
-" details.  These aren't absolute rules; they're just an approximation of
-" common style in LLVM source.
-set cinoptions=:0,g0,(0,Ws,l1
-" Add and delete spaces in increments of `shiftwidth' for tabs
-set smarttab
-
-" Highlight syntax in programming languages
-syntax on
-
-" LLVM Makefiles can have names such as Makefile.rules or TEST.nightly.Makefile,
-" so it's important to categorize them as such.
-augroup filetype
-  au! BufRead,BufNewFile *Makefile* set filetype=make
-augroup END
-
-" In Makefiles, don't expand tabs to spaces, since we need the actual tabs
-autocmd FileType make set noexpandtab
-
-" Enable syntax highlighting for LLVM files. To use, copy
-" utils/vim/syntax/llvm.vim to ~/.vim/syntax .
-augroup filetype
-  au! BufRead,BufNewFile *.ll     set filetype=llvm
-augroup END
-
-" Enable syntax highlighting for tablegen files. To use, copy
-" utils/vim/syntax/tablegen.vim to ~/.vim/syntax .
-augroup filetype
-  au! BufRead,BufNewFile *.td     set filetype=tablegen
-augroup END
-
-" Enable syntax highlighting for reStructuredText files. To use, copy
-" rest.vim (http://www.vim.org/scripts/script.php?script_id=973)
-" to ~/.vim/syntax .
-augroup filetype
- au! BufRead,BufNewFile *.rst     set filetype=rest
-augroup END
-
-" OpenCL
-augroup filetype
- au! BufNewFile,BufRead *.cl  set filetype=opencl
-augroup END
+"""""""""""""" Appearance options """"""""""""""
 
 " Highlight trailing whitespace.
 highlight WhitespaceEOL ctermbg=DarkYellow guibg=DarkYellow
@@ -79,22 +73,22 @@ if v:version >= 702
   au InsertLeave * call matchdelete(w:m2)
   au InsertLeave * let w:m1=matchadd('WhitespaceEOL', '\s\+$', -1)
 else
-  au InsertEnter * syntax match WhitespaceEOL /\s\+\%#\@<!$/
-  au InsertLeave * syntax match WhitespaceEOL /\s\+$/
 endif
-
-"" ----------------------------------------------
-"  My settings:
 
 " show the cursor position all the time
 set ruler
 
+" Show linenumbers.
+set number
+set relativenumber
 
-" Make shift-insert work like in Xterm
-if has('gui_running')
-  map <S-Insert> <MiddleMouse>
-  map! <S-Insert> <MiddleMouse>
-endif
+" Highlight search results with F4
+noremap <F4> :set hlsearch! hlsearch?<CR>
+
+"""""""""""""" Vim tabs options """"""""""""""
+
+" Increase max num of tabs
+set tabpagemax=50
 
 " Shortcuts for changing tabs
 set ttimeoutlen=0
@@ -103,66 +97,40 @@ noremap  <C-h> <Esc>:tabprevious<CR>
 noremap! <C-l> <Esc>:tabnext<CR>i
 noremap  <C-l> <Esc>:tabnext<CR>
 
+"""""""""""""" Copy/Pasting options """"""""""""""
+
+" Shortcut for selection clipboard copy/pasting.
+" Leader is usually mapped to '\'
 noremap <Leader>y "*y
 noremap <Leader>p "*p
 
-" Highlight search results with F4
-noremap <F4> :set hlsearch! hlsearch?<CR>
+" Make shift-insert work like in Xterm
+if has('gui_running')
+  map <S-Insert> <MiddleMouse>
+  map! <S-Insert> <MiddleMouse>
+endif
 
-" Increase max num of tabs
-set tabpagemax=50
+"""""""""""""" File name completion options """"""""""""""
 
-" Tagbar options
-" Open/close:
-nmap <F3> :TagbarToggle<CR>
-
+" Ignore files with these extensions.
 set suffixes+=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx
 set suffixes+=.ilg,.inx,.out,.toc,.png,.jpg
 
-" Enable moving the cursor in all modes
+"""""""""""""" Cursor options """"""""""""""
+
+" Enable moving the cursor in all modes.
 set mouse=a
-" Show linenumbers.
-set number
-set relativenumber
-
-" filetype plugin indent on
-" set autoindent
-
 if &diff
   " diff mode
   set diffopt+=iwhite
 endif
 
-" Correct python indentation.
-function! SetupPython()
-  " Here, you can have the final say on what is set.  So
-  " fixup any settings you don't like.
-  setlocal softtabstop=2
-  setlocal tabstop=2
-  setlocal shiftwidth=2
-endfunction
-command! -bar SetupPython call SetupPython()
+"""""""""""""" Code formatting options """"""""""""""
 
 map <C-K> :pyf /usr/share/clang/clang-format.py<cr>
 imap <C-K> <c-o> :pyf /usr/share/clang/clang-format.py<cr>
 
-" CtrlP uses find instead of vim glob.
-let g:ctrlp_user_command = 'find %s -type f'
-" CtrlP runs asynchronously.
-let g:user_command_async = 1
-" Don't delete cache on exit.
-let g:ctrlp_clear_cache_on_exit = 0
-" If is 1, update after 250ms. If bigger than 1, the number will be used as the
-" delay time in milliseconds.
-let g:ctrlp_lazy_update = 1
-
-map <C-n> :NERDTreeToggle<CR>
-
-" required for YouCompleteMe
-set encoding=utf-8
-map <F1> :YcmCompleter GoToDeclaration<CR>
-map <F2> :YcmCompleter GoToDefinition<CR>
-nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
+"""""""""""""" Cross session options """"""""""""""
 
 " Tell vim to remember certain things when we exit
 "  '10  :  marks will be remembered for up to 10 previously edited files
@@ -172,7 +140,7 @@ nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
 "  n... :  where to save the viminfo files
 set viminfo='10,\"100,:20,%,n~/.viminfo
 
-" Setyp function to remember where we were
+" Setup function to remember where we were
 function! ResCur()
   if line("'\"") <= line("$")
     normal! g`"
@@ -185,5 +153,9 @@ augroup resCur
   autocmd BufWinEnter * call ResCur()
 augroup END
 
+"""""""""""""""""""""" Tagbar options
+" Open/close:
+nmap <F3> :TagbarToggle<CR>
 
-hi TabLineSel ctermfg=Red ctermbg=Yellow
+"""""""""""""""""""""" Powerline options
+let g:powerline_pycmd="py3"
