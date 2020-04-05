@@ -156,3 +156,6 @@ augroup END
 """""""""""""""""""""" Tagbar options
 " Open/close:
 nmap <F3> :TagbarToggle<CR>
+
+"""""""""""""""""""""" Powerline options
+let g:powerline_pycmd="py3"
