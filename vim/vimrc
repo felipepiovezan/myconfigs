@@ -1,10 +1,13 @@
-" Seems to work best with transparent terminals
-" Add colorscheme before the trick below for trailing whitespaces/long lines.
-colorscheme darkblue
-set backspace=indent,eol,start
-
 " It's VIM, not VI
 set nocompatible
+
+"""""""""""""" Colorscheme options """"""""""""""
+" Add colorscheme before the trick below for trailing whitespaces/long lines.
+set background=dark
+colorscheme solarized
+
+" Seems to work best with transparent terminals
+set backspace=indent,eol,start
 
 """""""""""""" Tab(\t) behavior options """"""""""""""
 " A tab produces a 2-space indentation
