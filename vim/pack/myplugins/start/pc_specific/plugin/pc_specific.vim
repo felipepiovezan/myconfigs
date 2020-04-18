@@ -1,5 +1,5 @@
 " Command to compile our code:
-command Ninja term arc shell gcc/6.3.0 -- ninja -j 12 -k 4  -C $ACDS_WORK_ROOT/acl/llvm-make install-LLVM
+command Ninja term arc shell gcc/7.2.0 -- ninja -j 12 -k 4  -C $ACDS_WORK_ROOT/acl/llvm-make install
 
 " Vim8.1 is putting terminal in bracketed mode for some reason, this will
 " remove terminal out of bracketed paste mode on exit.
@@ -11,3 +11,6 @@ let g:ctrlp_cache_dir = $DATA.'/.cache/ctrlp'
 
 map <C-K> :pyf $LOCAL/software/community_llvm/llvm-project/clang/tools/clang-format/clang-format.py<cr>
 imap <C-K> <c-o> :pyf $LOCAL/software/community_llvm/llvm-project/clang/tools/clang-format/clang-format.py<cr>
+
+" Highlight current tab
+hi TabLineSel ctermfg=Red ctermbg=Yellow
