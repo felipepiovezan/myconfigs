@@ -13,6 +13,7 @@ if [ -f /p/psg/ctools/arc/arc.bashrc ]; then
    . /p/psg/ctools/arc/arc.bashrc
 fi
 
+## ACL development shortcuts.
 if [ -n $ACDS_SRC_ROOT ]; then
   export PATH=$PATH:$ACDS_SRC_ROOT/regtest/hld/util/
   export TRANSFORMS=$ACDS_SRC_ROOT/acl/llvm-project/llvm/lib/Transforms/FPGATransforms/
@@ -31,43 +32,47 @@ if [ -n $ACDS_SRC_ROOT ]; then
   export regtest=$ACDS_SRC_ROOT/regtest/
   export OWNERS=$ACDS_SRC_ROOT/depot/hld/hldutil/main/data/code_owners.xml
   export owners=$ACDS_SRC_ROOT/depot/hld/hldutil/main/data/code_owners.xml
+  alias lit='aocl-lit -vvv o'
+  function clean {
+    echo cleaning with `which aocl-opt`;
+    for var in "$@"
+    do
+      echo cleaning $var
+      aocl-opt -S -strip-debug -strip-dead-prototypes $var -o $var
+    done
+  }
+  function cheatall() { make -C $acl cheat-all; }
+  function llvm() { make -C $acl llvm-install; }
 fi
 
+################################## Shortcuts
 export LOCAL=/build/fdeazeve/
-export local=$LOCAL
 export bl=$LOCAL/acl_builds/
-
-# My custom install path.
-export SOFTWARE_INSTALL_PREPATH=$LOCAL/software/install_prepath
-export SOFTWARE_INSTALL_POSTPATH=$LOCAL/software/install_postpath
-export PATH=$SOFTWARE_INSTALL_PREPATH/bin:$PATH:$SOFTWARE_INSTALL_POSTPATH/bin
-export LD_LIBRARY_PATH=$SOFTWARE_INSTALL_PREPATH/lib:$LD_LIBRARY_PATH:$SOFTWARE_INSTALL_POSTPATH/lib
-
 export DATA=/p/psg/swip/w/fdeazeve
 export data=$DATA
 export b=$data/builds/
 export acl=$ACDS_SRC_ROOT/acl
 
-# Custom auto-completion
+################################# Custom software
+export NETWORK_SOFTWARE_INSTALL_POSTPATH=$DATA/software/install_postpath
+export NETWORK_SOFTWARE_INSTALL_PREPATH=$DATA/software/install_prepath
+export PATH=$NETWORK_SOFTWARE_INSTALL_PREPATH/bin:$PATH:$NETWORK_SOFTWARE_INSTALL_POSTPATH/bin
+export LD_LIBRARY_PATH=$NETWORK_SOFTWARE_INSTALL_PREPATH/lib:$LD_LIBRARY_PATH:$NETWORK_SOFTWARE_INSTALL_POSTPATH/lib
+
+################################# Custom auto-completion
 source $DATA/acl_bash_completion/aocl-opt.sh
 source $DATA/acl_bash_completion/reg_exe.sh
 source $DATA/acl_bash_completion/p4.sh
 
-# i++ with toolchain:
-alias vimcpp='vim *.cpp -p'
-alias lit='aocl-lit -vvv o'
-function ipp() { i++ $@; }
-export PATH=$data/felipe/scripts/cleanup_ir/:$PATH
-
-#disable box asking for password in git commands.
+################################# Disable box asking for password in git commands.
 unset SSH_ASKPASS
 
-# Fix manpages.
+################################# Fix manpages.
 if [[ "${MANPATH: -1}" != ":" ]]; then
   export MANPATH="$MANPATH:"
 fi
 
-# QShell
+################################# QShell
 function sync_to_latest() { QUIET=1 make -C $ACLTEST_ROOT/../../p4/acl/bcommon/ sync_to_latest; }
 #function sync_to_build() { QUIET=1 make -C $ACLTEST_ROOT/../../p4/acl/bcommon/ sync_to_build; }
 function sync() { sync_to_latest; }
@@ -77,21 +82,26 @@ function sync_regtest() { QUIET=1 make -C $ACLTEST_ROOT/../../p4/acl/bcommon/ sy
 function qnew() { qshell2 --acl --copy hldkit; }
 function qenter() { qshell2; }
 
-# Getting builds
+################################ Getting builds
 function gettrunk() { arc shell acltest/20.3,acds/20.3,modelsim_se,modelsim_se-lic; }
 function get191() { arc shell devacds/19.1,acltest/19.1,acds/19.1,testutils,regutils; }
 function get193() { arc shell devacds/19.3,acltest/19.3,acds/19.3,testutils,regutils; }
 function getdebug() { arc shell acltest/todebug,gdb/8.3,; }
-function cheatall() { make -C $acl cheat-all; }
 function getsycl() { arc shell aclsycl,sycl/[qualified=1],tbb,acds/p/psg/data/sys_dla/acds/acds_17_1_1_with_patch_1_38,gcc/7.4.0/2,adapt/18.0.1/185,python/2.7.13,aclboardpkg/intel_a10gx_pac/1.2a,ninja,cmake; }
+function getsyclnoacl() { arc shell sycl/[qualified=1],tbb,acds/p/psg/data/sys_dla/acds/acds_17_1_1_with_patch_1_38,gcc/7.4.0/2,adapt/18.0.1/185,python/2.7.13,aclboardpkg/intel_a10gx_pac/1.2a,ninja,cmake; }
 function getemu() { arc shell ssg_opencl_emulator_env ; }
 
-# SYCL
+################################ SYCL
 function syclrtl() { dpcpp --gcc-toolchain=$GCC_ROOTDIR -fintelfpga -Xshardware -fsycl-link -Xsv -Xsv -Xssave-temps $@; }
 
-# Arc cheating
+################################ Arc cheating
 function poorfarm { arc job-query user=fdeazeve status=queued priority=$1 | arc job - priority=$2; }
 function poorfarmjob { arc job-query parent=$1 | arc job - priority=$2; }
+function resources {
+  local resources=`arc job | grep resources`;
+  local remove_str='*resources : ';
+  echo ${resources#$remove_str};
+}
 
-# P4
+################################ P4
 function mychanges { p4 changes --me -c $P4CLIENT -s pending; }
