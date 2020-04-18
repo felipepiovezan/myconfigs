@@ -7,3 +7,6 @@
 [submodule "fonts"]
 	path = fonts
 	url = https://github.com/powerline/fonts.git
+[submodule "vim/pack/myplugins/start/vim-autoformat"]
+	path = vim/pack/myplugins/start/vim-autoformat
+	url = https://github.com/Chiel92/vim-autoformat

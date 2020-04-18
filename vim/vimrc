@@ -159,3 +159,15 @@ nmap <F3> :TagbarToggle<CR>
 
 """""""""""""""""""""" Powerline options
 let g:powerline_pycmd="py3"
+
+"""""""""""""""""""""" Autoformat options
+noremap <F2> :Autoformat<CR>
+" Enable formatting on save:
+" au BufWrite * :Autoformat
+" Disable fallback to vim formatting:
+" let g:autoformat_retab = 0
+" let g:autoformat_autoindent = 0
+" let g:autoformat_remove_trailing_spaces = 0
+" Disable fallback autoindent for filetypes with incompetent autoindent:
+autocmd FileType vim,tex let b:autoformat_autoindent=0
+
