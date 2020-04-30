@@ -127,8 +127,8 @@ endif
 
 """""""""""""" Code formatting options """"""""""""""
 
-map <C-K> :pyf /usr/share/clang/clang-format.py<cr>
-imap <C-K> <c-o> :pyf /usr/share/clang/clang-format.py<cr>
+map <C-K> :py3f /home/rictor/bin/clang-format.py<cr>
+imap <C-K> <c-o> :py3f /home/rictor/bin/clang-format.py<cr>
 
 """""""""""""" Cross session options """"""""""""""
 
