@@ -13,3 +13,9 @@
 [submodule "vim/pack/myplugins/start/vim-pandoc-syntax"]
 	path = vim/pack/myplugins/start/vim-pandoc-syntax
 	url = https://github.com/vim-pandoc/vim-pandoc-syntax.git
+[submodule "vim/pack/myplugins/start/fzf"]
+	path = vim/pack/myplugins/start/fzf
+	url = https://github.com/junegunn/fzf.git
+[submodule "vim/pack/myplugins/start/fzf.vim"]
+	path = vim/pack/myplugins/start/fzf.vim
+	url = https://github.com/junegunn/fzf.vim.git

@@ -175,3 +175,10 @@ noremap <F2> :Autoformat<CR>
 " Disable fallback autoindent for filetypes with incompetent autoindent:
 autocmd FileType vim,tex let b:autoformat_autoindent=0
 
+"""""""""""""""""""""" Fzf options
+map <C-P> :Files <cr>
+let g:fzf_action = {
+  \ 'enter' :  'tab split',
+  \ 'ctrl-t' : 'tab split',
+  \ 'ctrl-x' : 'split',
+  \ 'ctrl-v' : 'vsplit' }
