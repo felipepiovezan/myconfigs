@@ -10,3 +10,9 @@
 [submodule "vim/pack/myplugins/start/vim-autoformat"]
 	path = vim/pack/myplugins/start/vim-autoformat
 	url = https://github.com/Chiel92/vim-autoformat
+[submodule "vim/pack/myplugins/start/fzf"]
+	path = vim/pack/myplugins/start/fzf
+	url = https://github.com/junegunn/fzf.git
+[submodule "vim/pack/myplugins/start/fzf.vim"]
+	path = vim/pack/myplugins/start/fzf.vim
+	url = https://github.com/junegunn/fzf.vim.git
