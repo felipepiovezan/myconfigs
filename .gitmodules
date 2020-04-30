@@ -10,3 +10,6 @@
 [submodule "vim/pack/myplugins/start/vim-autoformat"]
 	path = vim/pack/myplugins/start/vim-autoformat
 	url = https://github.com/Chiel92/vim-autoformat
+[submodule "vim/pack/myplugins/start/vim-pandoc-syntax"]
+	path = vim/pack/myplugins/start/vim-pandoc-syntax
+	url = https://github.com/vim-pandoc/vim-pandoc-syntax.git
