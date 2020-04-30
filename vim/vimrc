@@ -40,6 +40,10 @@ augroup filetype
   au! BufNewFile,BufRead *.cl  set filetype=opencl
 augroup END
 
+augroup pandoc_syntax
+  au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+augroup END
+
 " In Makefiles, don't expand tabs to spaces, since we need the actual tabs
 autocmd FileType make set noexpandtab
 
