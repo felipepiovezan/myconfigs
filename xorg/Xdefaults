@@ -1,7 +1,5 @@
 URxvt*.geometry: 80x25
 URxvt*.depth: 32
-URxvt*.background: rgba:0000/0000/0000/DDDD
-URxvt*.foreground: #FFFFFF
 URxvt*.scrollBar: false
 URxvt*.scrollTtyOutput: false
 URxvt*.scrollTtyKeypress: true
