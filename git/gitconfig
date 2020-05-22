@@ -1,4 +1,3 @@
-
 [user]
 name = Felipe de Azevedo Piovezan
 
@@ -18,6 +17,10 @@ name = Felipe de Azevedo Piovezan
 [include]
   path = ~/.gitconfig.pc.specific
 
-
 [core]
   editor = 'vim'
+
+# Disable/enable paging (e.g. "less") for individual commands.
+[pager]
+  lol = false
+  lolfull = true
