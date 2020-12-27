@@ -5,7 +5,7 @@ rm -r $HOME/.vim/syntax
 rm -r $HOME/.vim/pack
 rm -r $HOME/.vim/colors
 
-ln --symbolic $PWD/vimrc $HOME/.vimrc
-ln --symbolic $PWD/syntax/ $HOME/.vim/
-ln --symbolic $PWD/pack/ $HOME/.vim/
-ln --symbolic $PWD/colors/ $HOME/.vim/
+ln -s $PWD/vimrc $HOME/.vimrc
+ln -s $PWD/syntax/ $HOME/.vim/
+ln -s $PWD/pack/ $HOME/.vim/
+ln -s $PWD/colors/ $HOME/.vim/
