@@ -89,6 +89,8 @@ set relativenumber
 " Highlight search results with F4
 noremap <F4> :set hlsearch! hlsearch?<CR>
 
+" Highline current line.
+set cursorline
 """""""""""""" Vim tabs options """"""""""""""
 
 " Increase max num of tabs
@@ -182,3 +184,13 @@ let g:fzf_action = {
   \ 'ctrl-t' : 'tab split',
   \ 'ctrl-x' : 'split',
   \ 'ctrl-v' : 'vsplit' }
+
+"""""""""""""""""""""" Git helpers
+" Add "Blame" command to open the result of git blame on the currently opened
+" buffer.
+" Note: '#' expands to the previous buffer name.
+command Blame tabnew|read !git blame #
+" Set line-wrap at 72 characters for commit messages.
+au FileType gitcommit setlocal tw=72
+" Set spell checking for commits.
+au FileType gitcommit set spell
