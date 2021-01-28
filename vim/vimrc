@@ -33,11 +33,11 @@ syntax on
 " Syntax detection
 augroup filetype
   au! BufRead,BufNewFile *Makefile* set filetype=make
-" To use syntax below, copy syntax/*.vim to ~/.vim/syntax
   au! BufRead,BufNewFile *.ll     set filetype=llvm
   au! BufRead,BufNewFile *.td     set filetype=tablegen
   au! BufRead,BufNewFile *.rst     set filetype=rest
   au! BufNewFile,BufRead *.cl  set filetype=opencl
+  au! BufRead,BufNewFile *.csl set filetype=csl
 augroup END
 
 augroup pandoc_syntax
@@ -133,8 +133,8 @@ endif
 
 """""""""""""" Code formatting options """"""""""""""
 
-map <C-K> :py3f /home/rictor/bin/clang-format.py<cr>
-imap <C-K> <c-o> :py3f /home/rictor/bin/clang-format.py<cr>
+map <C-K> :py3f /cb/tools/llvm/latest/share/clang/clang-format.py<cr>
+imap <C-K> <c-o> :py3f/cb/tools/llvm/latest/share/clang/clang-format.py<cr>
 
 """""""""""""" Cross session options """"""""""""""
 
