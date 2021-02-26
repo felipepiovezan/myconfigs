@@ -28,3 +28,6 @@
 [submodule "vim/pack/myplugins/start/vim-highlightedyank"]
 	path = vim/pack/myplugins/start/vim-highlightedyank
 	url = https://github.com/machakann/vim-highlightedyank.git
+[submodule "vim/pack/myplugins/start/vim-sandwich"]
+	path = vim/pack/myplugins/start/vim-sandwich
+	url = https://github.com/machakann/vim-sandwich.git
