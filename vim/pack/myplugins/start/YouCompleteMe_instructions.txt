@@ -1,0 +1,9 @@
+# Inside YouCompleteMe/
+  git submodule update --init --recursive
+  python install.py --clangd-completer
+
+# I had issues with `clangd` not finding the C++ standard libs in the default LD_LIBRARY_PATH
+# This would show up through obscure errors inside vim. A better way to get the
+# error message is to run `clangd` directly
+
+path/to/YouCompleteMe/third_party/ycmd/third_party/clangd/output/bin/clangd

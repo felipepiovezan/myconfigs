@@ -1,3 +1,3 @@
 set -x
 
-ln --symbolic $PWD/tmux.conf ~/.tmux.conf
+ln -s $PWD/tmux.conf ~/.tmux.conf

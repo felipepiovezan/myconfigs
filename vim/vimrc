@@ -33,11 +33,11 @@ syntax on
 " Syntax detection
 augroup filetype
   au! BufRead,BufNewFile *Makefile* set filetype=make
-" To use syntax below, copy syntax/*.vim to ~/.vim/syntax
   au! BufRead,BufNewFile *.ll     set filetype=llvm
   au! BufRead,BufNewFile *.td     set filetype=tablegen
   au! BufRead,BufNewFile *.rst     set filetype=rest
   au! BufNewFile,BufRead *.cl  set filetype=opencl
+  au! BufRead,BufNewFile *.csl set filetype=csl
 augroup END
 
 augroup pandoc_syntax
@@ -92,6 +92,8 @@ let mapleader=","
 " Highlight search results with F4
 noremap <F4> :set hlsearch! hlsearch?<CR>
 
+" Highline current line.
+set cursorline
 """""""""""""" Vim tabs options """"""""""""""
 
 " Increase max num of tabs
@@ -136,18 +138,18 @@ endif
 
 """""""""""""" Code formatting options """"""""""""""
 
-map <C-K> :py3f /home/rictor/bin/clang-format.py<cr>
-imap <C-K> <c-o> :py3f /home/rictor/bin/clang-format.py<cr>
+map <C-K> :py3f /cb/tools/llvm/latest/share/clang/clang-format.py<cr>
+imap <C-K> <c-o> :py3f/cb/tools/llvm/latest/share/clang/clang-format.py<cr>
 
 """""""""""""" Cross session options """"""""""""""
 
 " Tell vim to remember certain things when we exit
 "  '10  :  marks will be remembered for up to 10 previously edited files
 "  "100 :  will save up to 100 lines for each register
-"  :20  :  up to 20 lines of command-line history will be remembered
+"  :2000  :  up to 2000 lines of command-line history will be remembered
 "  %    :  saves and restores the buffer list
 "  n... :  where to save the viminfo files
-set viminfo='10,\"100,:20,%,n~/.viminfo
+set viminfo='10,\"100,:2000,%,n~/.viminfo
 
 " Setup function to remember where we were
 function! ResCur()
@@ -194,8 +196,8 @@ let g:fzf_action = {
   \ 'ctrl-v' : 'vsplit' }
 
 """""""""""""""""""""" YouCompleteMe options
-nnoremap <F1> :YcmCompleter GoTo<CR>
-nnoremap <S-F1> :YcmCompleter GoToDefinition<CR>
+nnoremap <F1> :tab split \| YcmCompleter GoTo<CR>
+nnoremap <S-F1> :tab split \| YcmCompleter GoToDefinition<CR>
 nnoremap <leader>gt :YcmCompleter GoTo<CR>
 nnoremap <leader>fi :YcmCompleter FixIt<CR>
 nnoremap <leader>gd :YcmCompleter GetDoc<CR>
@@ -205,7 +207,25 @@ nnoremap <leader>gti :YcmCompleter GoToInclude<CR>
 nnoremap <leader>gdf :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>gdc :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>yd :YcmDiags<CR>
+nnoremap <leader>for :YcmForceCompileAndDiagnostics<CR>
 
 """""""""""""""""""""" Enable per-project vimrc options
 set exrc
 set secure
+"""""""""""""""""""""" Git helpers
+" Add "Blame" command to open the result of git blame on the currently opened
+" buffer.
+" Note: '#' expands to the previous buffer name.
+command Blame tabnew|read !git blame #
+" Set line-wrap at 72 characters for commit messages.
+au FileType gitcommit setlocal tw=72
+" Set spell checking for commits.
+au FileType gitcommit set spell
+
+"""""""""""""""""""""" Word swapping shortcuts:
+" swap the current word with the next, without changing cursor position:
+:nnoremap <silent> gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>:nohlsearch<CR>
+" swap the current word with the next, keep cursor in current word:
+:nnoremap <silent> gl "_yiw?\w\+\_W\+\%#<CR>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>:nohlsearch<CR>
+" swap the current word with the previous, keep cursor in current word:
+:nnoremap <silent> gr "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o>/\w\+\_W\+<CR><c-l>:nohlsearch<CR>
