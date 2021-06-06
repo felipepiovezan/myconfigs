@@ -1,11 +1,9 @@
-[user]
-name = Felipe de Azevedo Piovezan
-
 [diff]
   tool = vimdiff
 
 [merge]
   tool = vimdiff
+  renamelimit = 20000
 
 [rerere]
   enabled = true
