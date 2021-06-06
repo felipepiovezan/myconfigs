@@ -3,7 +3,7 @@ URxvt*.depth: 32
 URxvt*.scrollBar: false
 URxvt*.scrollTtyOutput: false
 URxvt*.scrollTtyKeypress: true
-URxvt*.font: xft:Droid Sans Mono for Powerline:size=12
+URxvt*.font: xft:Droid Sans Mono for Powerline:size=14
 URxvt.transparent: false
 URxvt.shading: 30
 URxvt.intensityStyles: false
