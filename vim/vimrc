@@ -51,9 +51,9 @@ autocmd FileType make set noexpandtab
 function! SetupPython()
   " Here, you can have the final say on what is set.  So
   " fixup any settings you don't like.
-  setlocal softtabstop=2
-  setlocal tabstop=2
-  setlocal shiftwidth=2
+  setlocal softtabstop=4
+  setlocal tabstop=4
+  setlocal shiftwidth=4
 endfunction
 command! -bar SetupPython call SetupPython()
 
@@ -86,6 +86,9 @@ set ruler
 set number
 set relativenumber
 
+"""""""""""""" Hotkeys """"""""""""""
+let mapleader=","
+
 " Highlight search results with F4
 noremap <F4> :set hlsearch! hlsearch?<CR>
 
@@ -106,7 +109,6 @@ noremap  <C-l> <Esc>:tabnext<CR>
 """""""""""""" Copy/Pasting options """"""""""""""
 
 " Shortcut for selection clipboard copy/pasting.
-" Leader is usually mapped to '\'
 noremap <Leader>y "*y
 noremap <Leader>p "*p
 
@@ -115,6 +117,9 @@ if has('gui_running')
   map <S-Insert> <MiddleMouse>
   map! <S-Insert> <MiddleMouse>
 endif
+
+" Disable/Enable formatting upon pasting.
+set pastetoggle=<F5>
 
 """""""""""""" File name completion options """"""""""""""
 
@@ -170,12 +175,17 @@ let g:powerline_pycmd="py3"
 noremap <F2> :Autoformat<CR>
 " Enable formatting on save:
 " au BufWrite * :Autoformat
-" Disable fallback to vim formatting:
-" let g:autoformat_retab = 0
-" let g:autoformat_autoindent = 0
-" let g:autoformat_remove_trailing_spaces = 0
+" Disable fallback to vim formatting. For example, autopep8 wants 4 spaces per
+" tab, but not overriding the variables below would not use 4.
+let g:autoformat_retab = 0
+let g:autoformat_autoindent = 0
+let g:autoformat_remove_trailing_spaces = 0
 " Disable fallback autoindent for filetypes with incompetent autoindent:
 autocmd FileType vim,tex let b:autoformat_autoindent=0
+" Python specific: enable aggressive formating and override the default
+" invocation.
+let g:formatdef_autopep8 = "'autopep8 - --aggressive --aggressive --range '.a:firstline.' '.a:lastline"
+let g:formatters_python = ['autopep8']
 
 """""""""""""""""""""" Fzf options
 map <C-P> :Files <cr>
@@ -185,6 +195,23 @@ let g:fzf_action = {
   \ 'ctrl-x' : 'split',
   \ 'ctrl-v' : 'vsplit' }
 
+"""""""""""""""""""""" YouCompleteMe options
+nnoremap <F1> :tab split \| YcmCompleter GoTo<CR>
+nnoremap <S-F1> :tab split \| YcmCompleter GoToDefinition<CR>
+nnoremap <leader>gt :YcmCompleter GoTo<CR>
+nnoremap <leader>fi :YcmCompleter FixIt<CR>
+nnoremap <leader>gd :YcmCompleter GetDoc<CR>
+nnoremap <leader>gtp :YcmCompleter GetType<CR>
+nnoremap <leader>gp :YcmCompleter GetParent<CR>
+nnoremap <leader>gti :YcmCompleter GoToInclude<CR>
+nnoremap <leader>gdf :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>gdc :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>yd :YcmDiags<CR>
+nnoremap <leader>for :YcmForceCompileAndDiagnostics<CR>
+
+"""""""""""""""""""""" Enable per-project vimrc options
+set exrc
+set secure
 """""""""""""""""""""" Git helpers
 " Add "Blame" command to open the result of git blame on the currently opened
 " buffer.
@@ -202,7 +229,3 @@ au FileType gitcommit set spell
 :nnoremap <silent> gl "_yiw?\w\+\_W\+\%#<CR>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>:nohlsearch<CR>
 " swap the current word with the previous, keep cursor in current word:
 :nnoremap <silent> gr "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o>/\w\+\_W\+<CR><c-l>:nohlsearch<CR>
-
-"""""""""""""""""""""" YouCompleteMe shortcuts:
-nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
-nnoremap <F1> :tab split \| YcmCompleter GoToDefinition<CR>

@@ -1,1 +1,2 @@
 #include ".Xresources.dark"
+Xft.dpi: 192  << HiDPI
