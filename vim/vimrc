@@ -37,7 +37,6 @@ augroup filetype
   au! BufRead,BufNewFile *.td     set filetype=tablegen
   au! BufRead,BufNewFile *.rst     set filetype=rest
   au! BufNewFile,BufRead *.cl  set filetype=opencl
-  au! BufRead,BufNewFile *.csl set filetype=csl
 augroup END
 
 augroup pandoc_syntax
@@ -219,8 +218,6 @@ set secure
 command Blame tabnew|read !git blame #
 " Set line-wrap at 72 characters for commit messages.
 au FileType gitcommit setlocal tw=72
-" Set spell checking for commits.
-au FileType gitcommit set spell
 
 """""""""""""""""""""" Word swapping shortcuts:
 " swap the current word with the next, without changing cursor position:
@@ -229,3 +226,12 @@ au FileType gitcommit set spell
 :nnoremap <silent> gl "_yiw?\w\+\_W\+\%#<CR>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>:nohlsearch<CR>
 " swap the current word with the previous, keep cursor in current word:
 :nnoremap <silent> gr "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o>/\w\+\_W\+<CR><c-l>:nohlsearch<CR>
+
+
+"""""""""""""""""""""" Spell-checking
+" Set spell checking for commits.
+au FileType gitcommit set spell
+au FileType markdown set spell
+
+"""""""""""""""""""""" Comment wrapping helpers
+autocmd FileType c,cpp,llvm,mlir set comments^=:///
