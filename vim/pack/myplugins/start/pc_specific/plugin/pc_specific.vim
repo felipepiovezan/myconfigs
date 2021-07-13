@@ -3,3 +3,5 @@
 " remove terminal out of bracketed paste mode on exit.
 set t_BE=
 
+let g:clang_format_path=""
+let g:clang_format_python_script=""

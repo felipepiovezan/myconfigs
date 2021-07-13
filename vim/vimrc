@@ -137,8 +137,8 @@ endif
 
 """""""""""""" Code formatting options """"""""""""""
 
-map <C-K> :py3f /cb/tools/llvm/latest/share/clang/clang-format.py<cr>
-imap <C-K> <c-o> :py3f/cb/tools/llvm/latest/share/clang/clang-format.py<cr>
+map <C-K> :py3f  <C-r>=clang_format_python_script<CR><cr>
+imap <C-K> <c-o> :py3f <C-r>=clang_format_python_script<CR><cr>
 
 """""""""""""" Cross session options """"""""""""""
 
